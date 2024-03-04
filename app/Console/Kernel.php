@@ -12,7 +12,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('schedule:daily')->daily();
+        $schedule->command('schedule:weekly')->weekly();
+        $schedule->command('schedule:tenDays')->cron('0 0 1-10 * *');
+        $schedule->command('schedule:monthly')->monthly();
+        $schedule->command('schedule:yearly')->yearly();
     }
 
     /**

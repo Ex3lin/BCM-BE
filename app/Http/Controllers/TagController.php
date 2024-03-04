@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 
 class TagController extends Controller
 {
+    
     public function create(TagCreateRequest $request){
         $data = $request->all();
         $invoice = new Tag($data);
