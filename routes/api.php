@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ScheduleInvoiceController;
+use App\Http\Controllers\SummaryMonthController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,18 +20,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/invoice', [InvoiceController::class, 'createInvoice']);
 Route::get('/invoices', [InvoiceController::class, 'getInvoices']);
-Route::patch('/invoice/{invoice}', [InvoiceController::class, 'updateInvoice']);
+Route::patch('/invoice/{invoiceId}', [InvoiceController::class, 'updateInvoice']);
 Route::delete('/invoice/{id}', [InvoiceController::class, 'deleteInvoice']);
 
 Route::post('/tag', [TagController::class, 'create']);
 Route::get('/tag', [TagController::class, 'get']);
 Route::delete('/tag/{id}', [TagController::class, 'delete']);
 
-Route::post('/syncTags', [InvoiceController::class, 'syncTags']);
 
-Route::post('/schedule', [ScheduleInvoiceController::class, 'create']);
-Route::get('/schedule', [ScheduleInvoiceController::class, 'get']);
-Route::delete('/schedule/{id}', [ScheduleInvoiceController::class, 'delete']);
+
+Route::post('/tag', [TagController::class, 'create']);
+Route::get('/tag', [TagController::class, 'get']);
+Route::delete('/tag/{id}', [TagController::class, 'delete']);
+
+Route::post('/syncTags', [InvoiceController::class, 'syncTags']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

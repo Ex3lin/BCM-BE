@@ -2,16 +2,21 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ScheduleInvoiceCreateRequest extends FormRequest
+class CategoryCreateRequest extends FormRequest
 {
+    public function failedValidation(Validator $validator){
+        throw new HttpResponseException(response()->json($validator->errors(), 400));
+    }
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,7 +27,9 @@ class ScheduleInvoiceCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'cost' => 'required',
+            'type' => 'required'
         ];
     }
 }

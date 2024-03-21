@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Invoice extends Model
 { 
     use HasFactory;
-    protected $fillable = ['name','submitted','type','cost'];
-
+    protected $fillable = ['name', 'description', 'cost', 'type', 'status', 'deadline', 'submitted'];
 
     public function tags(): BelongsToMany{
         return $this->belongsToMany(Tag::class,'invoice_tag','invoice_id','tag_id');

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class Activity extends Model
 { 
     use HasFactory;
-    protected $table = 'invoices_tags';
+    protected $table = 'activities';
     protected $fillable = ["name"];
 }

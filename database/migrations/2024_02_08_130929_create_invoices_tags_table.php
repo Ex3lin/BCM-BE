@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoice_tag', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('invoice_id');
-            $table->foreign('invoice_id')->references('id')->on('invoices')
-            ->onDelete('cascade'); 
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade'); 
             $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags')
-            ->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
