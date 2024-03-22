@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AttachTagRequest;
 use App\Http\Requests\InvoiceCreateRequest;
+use App\Http\Requests\InvoiceSumOfDatesRequest;
 use App\Models\Invoice;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -84,6 +86,28 @@ class InvoiceController extends Controller
         $invoice->fill($invoiceId->all());
         $invoice->save();
         return $invoice;
+    }
+
+    public function getSumOfDates(InvoiceSumOfDatesRequest $request){
+        $startOfDate = Carbon::createFromFormat('Y-m-d',$request->input('startDate'));
+        $endDate = Carbon::createFromFormat('Y-m-d',$request->input('endDate'));
+
+        $sumDatesByType = Invoice::query()
+            ->select(
+                DB::raw('SUM(cost) as cost,type'),
+            )
+            ->groupBy('type')
+            ->where('deadline', '>', $startOfDate)
+            ->where('deadline','<', $endDate)
+            ->get();
+
+        $sumIncome = $sumDatesByType->where('type','income')->max('cost');
+        $sumExpense = $sumDatesByType->where('type','expense')->max('cost');
+
+        $sumAll = $sumIncome-$sumExpense;
+
+
+        return $sumAll;
     }
 
     public function syncTags(AttachTagRequest $request){

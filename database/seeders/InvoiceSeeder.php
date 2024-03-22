@@ -14,6 +14,6 @@ class InvoiceSeeder extends Seeder
     public function run(): void
     {
         
-        Invoice::factory(100)->create();
+        Invoice::factory(10)->create();
     }
 }

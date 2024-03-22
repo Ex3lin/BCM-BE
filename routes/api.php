@@ -22,6 +22,7 @@ Route::post('/invoice', [InvoiceController::class, 'createInvoice']);
 Route::get('/invoices', [InvoiceController::class, 'getInvoices']);
 Route::patch('/invoice/{invoiceId}', [InvoiceController::class, 'updateInvoice']);
 Route::delete('/invoice/{id}', [InvoiceController::class, 'deleteInvoice']);
+Route::get('/summary', [InvoiceController::class, 'getSumOfDates']);
 
 Route::post('/tag', [TagController::class, 'create']);
 Route::get('/tag', [TagController::class, 'get']);
