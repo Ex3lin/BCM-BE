@@ -11,9 +11,9 @@ class TagController extends Controller
     
     public function create(TagCreateRequest $request){
         $data = $request->all();
-        $invoice = new Tag($data);
-        $invoice->save(); 
-        return "Тег добавлен";
+        $tag = new Tag($data);
+        $tag->save(); 
+        return $tag;
     }
     
     public function get(){
@@ -21,8 +21,8 @@ class TagController extends Controller
     }
 
     public function delete($id){
-        $invoice = Tag::findOrFail($id);
-        $invoice->delete();
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
         return `тег $id удален`;
     }
 }

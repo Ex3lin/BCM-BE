@@ -57,12 +57,19 @@ class InvoiceController extends Controller
     public function getInvoices(Request $request){
         $invoiceQuery = Invoice::query();
         
-        if ($request->has('status')) {
-            $invoiceQuery->where('status','=',$request->input('status'));
-        }
         if ($request->has('type')) {
             $invoiceQuery->where('type','=',$request->input('type'));
         }
+        if ($request->has('status')) {
+            $invoiceQuery->where('status','=',$request->input('status'));
+        }
+        if ($request->has('minCost')) {
+            $invoiceQuery->where('cost','>=',$request->input('minCost'));
+        }
+        if ($request->has('maxCost')) {
+            $invoiceQuery->where('cost','<=',$request->input('maxCost'));
+        }
+        
         if ($request->has('orderBy') && $request->has('orderDir')){
             $orderBy = $request->input('orderBy');
             $orderDir = $request->input('orderDir','ASC');

@@ -14,12 +14,20 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('cost')->default(0);
-            $table->enum('type', ['task', 'income', 'expense'])->default('task');
-            $table->enum('status', ['active', 'completed', 'aborted'])->default('active');
-            $table->timestamp('deadline')->nullable()->default(null);
-            $table->timestamp('submitted')->nullable()->default(null);
+            $table->text('description')
+                        ->nullable();
+            $table->integer('cost')
+                        ->default(0);
+            $table->enum('type', ['task', 'income', 'expense'])
+                        ->default('task');
+            $table->enum('status', ['active', 'completed', 'aborted'])
+                        ->default('active');
+            $table->timestamp('deadline')
+                        ->nullable()
+                        ->default(null);
+            $table->timestamp('submitted')
+                        ->nullable()
+                        ->default(null);
             $table->timestamps();
         });
     }

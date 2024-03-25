@@ -28,12 +28,6 @@ Route::post('/tag', [TagController::class, 'create']);
 Route::get('/tag', [TagController::class, 'get']);
 Route::delete('/tag/{id}', [TagController::class, 'delete']);
 
-
-
-Route::post('/tag', [TagController::class, 'create']);
-Route::get('/tag', [TagController::class, 'get']);
-Route::delete('/tag/{id}', [TagController::class, 'delete']);
-
 Route::post('/syncTags', [InvoiceController::class, 'syncTags']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
