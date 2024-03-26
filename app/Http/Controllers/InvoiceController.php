@@ -76,7 +76,6 @@ class InvoiceController extends Controller
 
             $invoiceQuery->orderBy($orderBy, $orderDir);
         }
-        // $filter = $request->all();
 
         return $invoiceQuery->get();
         // return Invoice::with(['tags'])->get();
@@ -117,12 +116,13 @@ class InvoiceController extends Controller
         return $sumAll;
     }
 
-    public function syncTags(AttachTagRequest $request){
+    public function attachTags(AttachTagRequest $request){
         $invoiceId = $request->input('invoice_id');
         $tagId = $request->input('tag_id');
-
+        
         $invoice = Invoice::findOrFail($invoiceId);
         $invoice->tags()->sync($tagId);
+        
         return `Invoice $invoiceId connected with tag $tagId`;
     }
 

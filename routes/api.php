@@ -25,10 +25,10 @@ Route::delete('/invoice/{id}', [InvoiceController::class, 'deleteInvoice']);
 Route::get('/summary', [InvoiceController::class, 'getSumOfDates']);
 
 Route::post('/tag', [TagController::class, 'create']);
-Route::get('/tag', [TagController::class, 'get']);
+Route::get('/tags', [TagController::class, 'get']);
 Route::delete('/tag/{id}', [TagController::class, 'delete']);
 
-Route::post('/syncTags', [InvoiceController::class, 'syncTags']);
+Route::post('/attachTags', [InvoiceController::class, 'attachTags']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

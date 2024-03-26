@@ -30,7 +30,7 @@ class AttachTagRequest extends FormRequest
     {
         return [
             'invoice_id' => 'exists:invoices,id',
-            'tag_id' => 'array|exists:tags,id'
+            'tag_id' => 'exists:tags,id'
         ];
     }
 }
