@@ -20,8 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/invoice', [InvoiceController::class, 'createInvoice']);
 Route::get('/invoices', [InvoiceController::class, 'getInvoices']);
-Route::patch('/invoice/{invoiceId}', [InvoiceController::class, 'updateInvoice']);
+Route::patch('/invoice/{invoice}', [InvoiceController::class, 'updateInvoice']);
 Route::delete('/invoice/{id}', [InvoiceController::class, 'deleteInvoice']);
+
 Route::get('/summary', [InvoiceController::class, 'getSumOfDates']);
 
 Route::post('/tag', [TagController::class, 'create']);

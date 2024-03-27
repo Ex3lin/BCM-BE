@@ -13,14 +13,20 @@ use Illuminate\Support\Facades\DB;
 class InvoiceController extends Controller
 {
     public function createInvoice(InvoiceCreateRequest $request){
-        if($request->has('task')){
-            
+        if($request->type === 'task'){
+            $request->merge(['cost' => '0']);
         };
+        if($request->type === 'expense'){
+            $decr = $request->cost * -1;
+            $request->merge(['cost' => $decr]);
+        }
 
         if($request->has('repeat_count') && $request->has('repeat_interval')){
             $repeatCount = $request->input('repeat_count');
             $repeatInterval = $request->input('repeat_interval');
-            $sinceDate = Carbon::now();
+            $sinceDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->deadline);
+
+            return $sinceDate;
 
             for ($i = 0; $i < $repeatCount; $i++) {
                 $invoice = new Invoice($request->all());
@@ -28,29 +34,25 @@ class InvoiceController extends Controller
                 
                 if ($repeatInterval == 'daily') {
                     $sinceDate->addDay();
-                
                     $invoice->save();
                 }
                 if ($repeatInterval == 'weekly') {
                     $sinceDate->addWeek();
-                
                     $invoice->save();
                 }
                 if ($repeatInterval == 'monthly') {
                     $sinceDate->addMonth();
-                
                     $invoice->save();
                 }
-                
                 $invoice->save();
             }
             
-
-            return "Invoices created";
+            return $invoice;
         }
         $data = $request->all();
         $invoice = new Invoice($data);
         $invoice->save(); 
+
         return "Invoice created";
     }
     
@@ -77,20 +79,32 @@ class InvoiceController extends Controller
             $invoiceQuery->orderBy($orderBy, $orderDir);
         }
 
-        return $invoiceQuery->get();
-        // return Invoice::with(['tags'])->get();
+        return Invoice::with(['tags'])->get();
     }
 
     public function deleteInvoice($id){
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
+
         return `Invoice $id has been deleted`;
     }
 
-    public function updateInvoice(InvoiceCreateRequest $invoiceId, Invoice $invoice){
+    public function updateInvoice(InvoiceCreateRequest $request, Invoice $invoice){
+        if($request->type === 'task'){
+            $request->merge(['cost' => '0']);
+        };
+        if($request->type === 'expense'){
+            $decr = $request->cost * -1;
+            $request->merge(['cost' => $decr]);
+        }
 
-        $invoice->fill($invoiceId->all());
+
+        if($request->status === 'completed' || $request->status === 'aborted'){
+            $request->merge(['submitted' => Carbon::now()]);   
+        }
+        $invoice->fill($request->all());
         $invoice->save();
+
         return $invoice;
     }
 
@@ -109,21 +123,20 @@ class InvoiceController extends Controller
 
         $sumIncome = $sumDatesByType->where('type','income')->max('cost');
         $sumExpense = $sumDatesByType->where('type','expense')->max('cost');
+        $sumAll = $sumIncome+$sumExpense;
 
-        $sumAll = $sumIncome-$sumExpense;
-
-
-        return $sumAll;
+        return $sumDatesByType;
     }
 
     public function attachTags(AttachTagRequest $request){
         $invoiceId = $request->input('invoice_id');
-        $tagId = $request->input('tag_id');
-        
-        $invoice = Invoice::findOrFail($invoiceId);
-        $invoice->tags()->sync($tagId);
-        
-        return `Invoice $invoiceId connected with tag $tagId`;
-    }
+        $tagsId = $request->input('tag_id');
 
+        $targetInvoice = Invoice::findOrFail($invoiceId);
+        $targetInvoice->tags()->sync($tagsId);
+
+        $targetInvoice->load('tags');
+
+        return $targetInvoice;
+    }
 }
