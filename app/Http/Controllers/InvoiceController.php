@@ -26,8 +26,6 @@ class InvoiceController extends Controller
             $repeatInterval = $request->input('repeat_interval');
             $sinceDate = Carbon::createFromFormat('Y-m-d H:i:s', $request->deadline);
 
-            return $sinceDate;
-
             for ($i = 0; $i < $repeatCount; $i++) {
                 $invoice = new Invoice($request->all());
                 $invoice['deadline'] = $sinceDate; 
@@ -44,6 +42,10 @@ class InvoiceController extends Controller
                     $sinceDate->addMonth();
                     $invoice->save();
                 }
+                if ($repeatInterval == 'yearly') {
+                    $sinceDate->addYear();
+                    $invoice->save();
+                }
                 $invoice->save();
             }
             
@@ -57,7 +59,7 @@ class InvoiceController extends Controller
     }
     
     public function getInvoices(Request $request){
-        $invoiceQuery = Invoice::query()->with(['tags']);
+        $invoiceQuery = Invoice::query();
         
         if ($request->has('type')) {
             $invoiceQuery->where('type','=',$request->input('type'));
@@ -80,21 +82,22 @@ class InvoiceController extends Controller
         }
 
         if ($request->has('search')) {
-            $res = $invoiceQuery->whereAny([
-                    'name',
-                    'description',
-                    'cost'
-                ],'like',$request->input('%{search}%'));
+            $searchQuery = "%".$request->input('search')."%";
+            $invoiceQuery->where('name','like',$searchQuery)
+                ->orWhere('description','like',$searchQuery)
+                ->orWhere('cost','like',$searchQuery)
+                ->orWhereHas('tags', function ($query) use ($searchQuery) {
+                    $query->where('name','like',$searchQuery);
+                });
         }
-        // return $invoiceQuery->get();
-        return $invoiceQuery->get();
+        return $invoiceQuery->with(['tags'])->paginate(25);
     }
 
     public function deleteInvoice($id){
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
 
-        return `Invoice $id has been deleted`;
+        return "anal content";
     }
 
     public function updateInvoice(InvoiceCreateRequest $request, Invoice $invoice){
@@ -133,7 +136,7 @@ class InvoiceController extends Controller
         $sumExpense = $sumDatesByType->where('type','expense')->max('cost');
         $sumAll = $sumIncome+$sumExpense;
 
-        return $sumDatesByType;
+        return $sumAll;
     }
 
     public function attachTags(AttachTagRequest $request){

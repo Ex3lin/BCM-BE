@@ -35,7 +35,7 @@ class InvoiceCreateRequest extends FormRequest
             'cost' => 'required|integer',
             'deadline' => 'nullable|date',
             'submitted' => 'nullable|date',
-            'repeat_interval' => 'nullable|string|in:daily,weekly,monthly',
+            'repeat_interval' => 'nullable|string|in:daily,weekly,monthly,yearly',
             'repeat_count' => 'nullable|integer'
 
         ];
