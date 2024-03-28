@@ -57,7 +57,7 @@ class InvoiceController extends Controller
     }
     
     public function getInvoices(Request $request){
-        $invoiceQuery = Invoice::query();
+        $invoiceQuery = Invoice::query()->with(['tags']);
         
         if ($request->has('type')) {
             $invoiceQuery->where('type','=',$request->input('type'));
@@ -71,7 +71,7 @@ class InvoiceController extends Controller
         if ($request->has('maxCost')) {
             $invoiceQuery->where('cost','<=',$request->input('maxCost'));
         }
-        
+
         if ($request->has('orderBy') && $request->has('orderDir')){
             $orderBy = $request->input('orderBy');
             $orderDir = $request->input('orderDir','ASC');
@@ -79,7 +79,15 @@ class InvoiceController extends Controller
             $invoiceQuery->orderBy($orderBy, $orderDir);
         }
 
-        return Invoice::with(['tags'])->get();
+        if ($request->has('search')) {
+            $res = $invoiceQuery->whereAny([
+                    'name',
+                    'description',
+                    'cost'
+                ],'like',$request->input('%{search}%'));
+        }
+        // return $invoiceQuery->get();
+        return $invoiceQuery->get();
     }
 
     public function deleteInvoice($id){
