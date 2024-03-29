@@ -15,6 +15,10 @@ return [
                 'api' => 'api/documentation',
             ],
             'paths' => [
+                // 'api' => [
+                //     'path' => '/api',
+                //     'description' => 'BCM API',
+                // ],
                 /*
                  * Edit to include full URL in ui for assets
                 */

@@ -13,12 +13,6 @@ use Illuminate\Routing\Controller as BaseController;
  *    description="BCM",
  *    version="1.0.0",
  * )
- * 
- * @OA\Get(
- *      path="/api/documentation",
- *      description="BCM Swagger",
- *      @OA\Response(response="default", description="welcome to API doc" )
- * )
  */
 class Controller extends BaseController
 {

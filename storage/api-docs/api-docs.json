@@ -6,12 +6,51 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/documentation": {
-            "get": {
-                "description": "BCM Swagger",
+        "api/invoice": {
+            "post": {
+                "tags": [
+                    "invoice"
+                ],
+                "summary": "Create new invoice",
+                "operationId": "031192373a1011c0fed972968c382923",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "cost": {
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "description": "enum: task, income, expense",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "enum: active, completed, aborted",
+                                        "type": "string"
+                                    },
+                                    "deadline": {
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "default": {
-                        "description": "welcome to API doc"
+                    "200": {
+                        "description": "Invoice"
                     }
                 }
             }

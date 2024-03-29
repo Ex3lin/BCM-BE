@@ -12,6 +12,51 @@ use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
+/**
+ * @OA\Post(
+ *     path="api/invoice",
+ *     tags={"invoice"},
+ *     summary="Create new invoice",
+ *     @OA\RequestBody(
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 @OA\Property(
+ *                     property="name",
+ *                     type="string"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="description",
+ *                     type="string"
+ *                 ),
+ *                    @OA\Property(
+ *                     property="cost",
+ *                     type="integer"
+ *                 ),
+ *                 @OA\Property(
+ *                     property="type",
+ *                     type="string",
+ *                     description="enum: task, income, expense",
+ *                 ),
+ *                 @OA\Property(
+ *                     property="status",
+ *                     type="string",
+ *                     description="enum: active, completed, aborted",
+ *                 ),
+ *                    @OA\Property(
+ *                     property="deadline",
+ *                     type="date"
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Invoice",
+ *         )
+ *     )
+ * )
+ */
     public function createInvoice(InvoiceCreateRequest $request){
         if($request->type === 'task'){
             $request->merge(['cost' => '0']);
