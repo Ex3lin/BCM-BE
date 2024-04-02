@@ -9,7 +9,7 @@
         "api/invoice": {
             "post": {
                 "tags": [
-                    "invoice"
+                    "Invoice"
                 ],
                 "summary": "Create new invoice",
                 "operationId": "031192373a1011c0fed972968c382923",
@@ -17,10 +17,262 @@
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "name",
+                                    "type",
+                                    "cost"
+                                ],
                                 "properties": {
-                                    "id": {
+                                    "name": {
+                                        "description": "",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "",
+                                        "type": "string"
+                                    },
+                                    "cost": {
+                                        "description": "only positive number",
                                         "type": "integer"
                                     },
+                                    "type": {
+                                        "description": "enum: task, income, expense",
+                                        "type": "string"
+                                    },
+                                    "deadline": {
+                                        "description": "assigned link date for invoice",
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "cost": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "description": "enum: task, income, expense",
+                                            "type": "string"
+                                        },
+                                        "deadline": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "status": {
+                                            "description": "enum: active, completed, aborted",
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "created_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/invoices": {
+            "get": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Get invoices",
+                "description": "Get invoices by query",
+                "operationId": "4fa23f647083d7f7cb284857992449c4",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "path",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "minCost",
+                        "in": "path",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "maxCost",
+                        "in": "path",
+                        "description": "",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Status values that need to be considered for filter",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "task",
+                            "enum": [
+                                "task",
+                                "income",
+                                "expense"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "path",
+                        "description": "Status values that need to be considered for filter",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "active",
+                            "enum": [
+                                "active",
+                                "completed",
+                                "aborted"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "path",
+                        "description": "Search by name, description, cost or tags",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "status",
+                            "enum": [
+                                "status",
+                                "deadline",
+                                "type",
+                                "cost"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "orderDir",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "ASC",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    }
+                }
+            }
+        },
+        "/api/invoice/{invoiceId}": {
+            "delete": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Delete invoice by id",
+                "operationId": "deleteInvoice",
+                "parameters": [
+                    {
+                        "name": "invoiceId",
+                        "in": "path",
+                        "description": "Invoice id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Invoice not found"
+                    }
+                }
+            }
+        },
+        "api/invoice/{InvoiceId}": {
+            "patch": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Update data for invoice by id",
+                "operationId": "7c20949299cdfd0be2885eb0d88d62a4",
+                "parameters": [
+                    {
+                        "name": "InvoiceId",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [],
+                                "properties": {
                                     "name": {
                                         "type": "string"
                                     },
@@ -50,7 +302,172 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Invoice"
+                        "description": "Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "cost": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "description": "enum: task, income, expense",
+                                            "type": "string"
+                                        },
+                                        "deadline": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "status": {
+                                            "description": "enum: active, completed, aborted",
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "created_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/summary": {
+            "get": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Get summary invoices cost count",
+                "description": "Get summary by dates",
+                "operationId": "e320173b4eac5a034cead7de57ce2a4c",
+                "parameters": [
+                    {
+                        "name": "startDate",
+                        "in": "path",
+                        "description": "format: HHHH-mm-dd",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "path",
+                        "description": "format: HHHH-mm-dd",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    }
+                }
+            }
+        },
+        "api/attachTags": {
+            "post": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Attach tag to invoice",
+                "operationId": "bc684c95017a0f86d17b459e13423d99",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "invoice_id",
+                                    "tag_id"
+                                ],
+                                "properties": {
+                                    "invoice_id": {
+                                        "description": "",
+                                        "type": "integer"
+                                    },
+                                    "tag_id": {
+                                        "description": "[tag_id1, tag_id2...]",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "format": "id"
+                                        },
+                                        "collectionFormat": "multi"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "cost": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "description": "enum: task, income, expense",
+                                            "type": "string"
+                                        },
+                                        "deadline": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "status": {
+                                            "description": "enum: active, completed, aborted",
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "created_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
