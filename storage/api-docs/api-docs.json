@@ -471,6 +471,151 @@
                     }
                 }
             }
+        },
+        "api/tag": {
+            "post": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Create new invoice",
+                "operationId": "c93356a80c6118b6996f052eebfc1fd4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "type",
+                                    "cost"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "",
+                                        "type": "string"
+                                    },
+                                    "cost": {
+                                        "description": "only positive number",
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "description": "enum: task, income, expense",
+                                        "type": "string"
+                                    },
+                                    "deadline": {
+                                        "description": "assigned link date for invoice",
+                                        "type": "string",
+                                        "format": "date"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "created_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tags": {
+            "get": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Get tags",
+                "description": "Get all tags",
+                "operationId": "e7ad8d7b59c776fbc84d045225231eee",
+                "responses": {
+                    "200": {
+                        "description": "Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        },
+                                        "created_at": {
+                                            "description": "",
+                                            "type": "string",
+                                            "format": "date"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tag/{tagId}": {
+            "delete": {
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "Delete tag by id",
+                "operationId": "deleteTag",
+                "parameters": [
+                    {
+                        "name": "tagId",
+                        "in": "path",
+                        "description": "Tag id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Invoice not found"
+                    }
+                }
+            }
         }
     }
 }
