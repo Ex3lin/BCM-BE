@@ -6,18 +6,18 @@ Invoice - marked note for your control. Basically have required name, type and c
 For additional it can take values - description, deadline and tags
 
 Invoice types:
-    - Task - non costable note(cost = 0)
-    - Income - note with pos cost
-    - Expense - note with neg cost
+- Task - non costable note(cost = 0)
+- Income - note with pos cost
+- Expense - note with neg cost
 
 Tags - conditionally categories for your invoices
 
 ## Used packages:
 
- - PHP 8.3.2
- - Laravel 10.43.0
- - Xdebug 3.3.1
- - MySQL 5.7.44
+- PHP 8.3.2
+- Laravel 10.43.0
+- Xdebug 3.3.1
+- MySQL 5.7.44
 
 ## How to deploy:
 
