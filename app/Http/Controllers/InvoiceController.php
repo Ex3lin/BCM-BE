@@ -318,7 +318,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
 
-        return "Invoice $id deleted";
+        return "Invoice id:$id has been deleted";
     }
 
     /**

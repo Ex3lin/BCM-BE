@@ -155,6 +155,6 @@ class TagController extends Controller
     public function delete($id){
         $tag = Tag::findOrFail($id);
         $tag->delete();
-        return `тег $id удален`;
+        return "Tag id:$id has been deleted";
     }
 }
