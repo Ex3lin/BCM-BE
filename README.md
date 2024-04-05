@@ -16,7 +16,9 @@ Tags - conditionally categories for your invoices
 
 - PHP 8.3.2
 - Laravel 10.43.0
+- Vite 5.0.0
 - Xdebug 3.3.1
+- SwaggerUI L5 5.12.0
 - MySQL 5.7.44
 
 ## How to deploy:
@@ -24,3 +26,7 @@ Tags - conditionally categories for your invoices
 1. `php artisan migrate`
 2. `php artisan db:seed`
 3. `php artisan serve`
+
+## Documentation:
+
+- http://.../api/documentation
