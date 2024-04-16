@@ -111,6 +111,24 @@
                 "operationId": "4fa23f647083d7f7cb284857992449c4",
                 "parameters": [
                     {
+                        "name": "startDate",
+                        "in": "path",
+                        "description": "format: YYYY-mm-dd",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "endDate",
+                        "in": "path",
+                        "description": "format: YYYY-mm-dd",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "page",
                         "in": "path",
                         "description": "",

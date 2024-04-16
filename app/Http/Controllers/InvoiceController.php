@@ -164,6 +164,24 @@ class InvoiceController extends Controller
         *       @OA\Parameter(
         *           in="path", 
         *           required=false, 
+        *           name="startDate", 
+        *           description="format: YYYY-mm-dd",
+        *           @OA\Schema(
+        *               type="string"
+        *           )
+        *       ),
+        *       @OA\Parameter(
+        *           in="path", 
+        *           required=false, 
+        *           name="endDate", 
+        *           description="format: YYYY-mm-dd",
+        *           @OA\Schema(
+        *               type="string"
+        *           )
+        *       ),
+        *       @OA\Parameter(
+        *           in="path", 
+        *           required=false, 
         *           name="page", 
         *           description="",
         *           @OA\Schema(
@@ -275,6 +293,26 @@ class InvoiceController extends Controller
 
             $invoiceQuery->orderBy($orderBy, $orderDir);
         }
+
+        if ($request->has('startDate')){
+            $startDate = Carbon::createFromFormat('Y-m-d',$request->input('startDate'));
+
+            $invoiceQuery->where('deadline', '>', $startDate);
+        }
+        if ($request->has('endDate')){
+            $endDate = Carbon::createFromFormat('Y-m-d',$request->input('endDate'));
+
+            $invoiceQuery->where('deadline','<', $endDate);
+        }        
+        if ($request->has('startDate') && $request->has('endDate')){
+            $startDate = Carbon::createFromFormat('Y-m-d',$request->input('startDate'));
+            $endDate = Carbon::createFromFormat('Y-m-d',$request->input('endDate'));
+
+            $invoiceQuery
+                ->where('deadline', '>', $startDate)
+                ->where('deadline','<', $endDate);
+        }
+        
 
         if ($request->has('search')) {
             $searchQuery = "%".$request->input('search')."%";
