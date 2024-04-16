@@ -25,24 +25,39 @@
                                 "properties": {
                                     "name": {
                                         "description": "",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "13'th salary"
                                     },
                                     "description": {
                                         "description": "",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "for happy future!"
                                     },
                                     "cost": {
                                         "description": "only positive number",
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": "5000"
                                     },
                                     "type": {
                                         "description": "enum: task, income, expense",
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "income"
                                     },
                                     "deadline": {
                                         "description": "assigned link date for invoice",
                                         "type": "string",
-                                        "format": "date"
+                                        "format": "date",
+                                        "example": "30-12-2021"
+                                    },
+                                    "repeat_interval": {
+                                        "description": "enum: daily, weekly, monthly, yearly",
+                                        "type": "string",
+                                        "example": "monthly"
+                                    },
+                                    "repeat_count": {
+                                        "description": "count of retries",
+                                        "type": "integer",
+                                        "example": "12"
                                     }
                                 },
                                 "type": "object"
@@ -58,13 +73,16 @@
                                 "schema": {
                                     "properties": {
                                         "id": {
-                                            "type": "integer"
+                                            "type": "integer",
+                                            "example": "26"
                                         },
                                         "name": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "13'th salary"
                                         },
                                         "description": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "for happy future!"
                                         },
                                         "cost": {
                                             "type": "integer"
@@ -74,13 +92,14 @@
                                             "type": "string"
                                         },
                                         "deadline": {
-                                            "description": "",
                                             "type": "string",
-                                            "format": "date"
+                                            "format": "date",
+                                            "example": "30-12-2021"
                                         },
                                         "status": {
                                             "description": "enum: active, completed, aborted",
-                                            "type": "string"
+                                            "type": "string",
+                                            "example": "active"
                                         },
                                         "updated_at": {
                                             "description": "",

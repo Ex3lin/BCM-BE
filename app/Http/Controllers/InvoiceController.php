@@ -30,27 +30,44 @@ class InvoiceController extends Controller
         *                   @OA\Property(
         *                       property="name",
         *                       type="string",
-        *                       description=""
+        *                       description="",
+        *                       example="13'th salary"
         *                   ),
         *                   @OA\Property(
         *                       property="description",
         *                       type="string",
-        *                       description=""
+        *                       description="",
+        *                       example="for happy future!"
         *                   ),
         *                   @OA\Property(
         *                       property="cost",
         *                       type="integer",
-        *                       description="only positive number"
+        *                       description="only positive number",
+        *                       example="5000"
         *                   ),
         *                   @OA\Property(
         *                       property="type",
         *                       type="string",
-        *                       description="enum: task, income, expense"
+        *                       description="enum: task, income, expense",
+        *                       example="income"
         *                   ),
         *                   @OA\Property(
         *                       property="deadline",
         *                       type="date",
-        *                       description="assigned link date for invoice"
+        *                       description="assigned link date for invoice",
+        *                       example="30-12-2021"
+        *                   ),
+        *                   @OA\Property(
+        *                       property="repeat_interval",
+        *                       type="string",
+        *                       description="enum: daily, weekly, monthly, yearly",
+        *                       example="monthly"
+        *                   ),
+        *                   @OA\Property(
+        *                       property="repeat_count",
+        *                       type="integer",
+        *                       description="count of retries",
+        *                       example="12"
         *                   )
         *               )
         *           )
@@ -61,15 +78,18 @@ class InvoiceController extends Controller
         *               @OA\Schema(
         *                   @OA\Property(
         *                       property="id",
-        *                       type="integer"
+        *                       type="integer",
+        *                       example="26"
         *                   ),
         *                   @OA\Property(
         *                       property="name",
-        *                       type="string"
+        *                       type="string",
+        *                       example="13'th salary"
         *                   ),
         *                   @OA\Property(
         *                       property="description",
-        *                       type="string"
+        *                       type="string",
+        *                       example="for happy future!"
         *                   ),
         *                   @OA\Property(
         *                       property="cost",
@@ -83,12 +103,13 @@ class InvoiceController extends Controller
         *                   @OA\Property(
         *                       property="deadline",
         *                       type="date",
-        *                       description=""
+        *                       example="30-12-2021"
         *                   ),
         *                   @OA\Property(
         *                       property="status",
         *                       type="string",
-        *                       description="enum: active, completed, aborted"
+        *                       description="enum: active, completed, aborted",
+        *                       example="active"
         *                   ),
         *                   @OA\Property(
         *                       property="updated_at",
@@ -152,7 +173,7 @@ class InvoiceController extends Controller
         $invoice = new Invoice($data);
         $invoice->save(); 
 
-        return "Invoice created";
+        return $invoice['id'];
     }
     
     /**
