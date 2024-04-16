@@ -116,7 +116,8 @@
                         "description": "format: YYYY-mm-dd",
                         "required": false,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "2000-01-01"
                         }
                     },
                     {
@@ -125,7 +126,8 @@
                         "description": "format: YYYY-mm-dd",
                         "required": false,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "2000-01-01"
                         }
                     },
                     {
@@ -134,7 +136,8 @@
                         "description": "",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": "1"
                         }
                     },
                     {
@@ -143,7 +146,8 @@
                         "description": "",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": "0"
                         }
                     },
                     {
@@ -152,7 +156,8 @@
                         "description": "",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "default": "0"
                         }
                     },
                     {
@@ -183,15 +188,6 @@
                                 "completed",
                                 "aborted"
                             ]
-                        }
-                    },
-                    {
-                        "name": "search",
-                        "in": "path",
-                        "description": "Search by name, description, cost or tags",
-                        "required": false,
-                        "schema": {
-                            "type": "string"
                         }
                     },
                     {
@@ -227,7 +223,8 @@
                         "in": "query",
                         "required": false,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "text"
                         }
                     }
                 ],

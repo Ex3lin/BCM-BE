@@ -167,7 +167,8 @@ class InvoiceController extends Controller
         *           name="startDate", 
         *           description="format: YYYY-mm-dd",
         *           @OA\Schema(
-        *               type="string"
+        *               type="string",
+        *               default="2000-01-01"
         *           )
         *       ),
         *       @OA\Parameter(
@@ -176,7 +177,8 @@ class InvoiceController extends Controller
         *           name="endDate", 
         *           description="format: YYYY-mm-dd",
         *           @OA\Schema(
-        *               type="string"
+        *               type="string",
+        *               default="2000-01-01"
         *           )
         *       ),
         *       @OA\Parameter(
@@ -185,7 +187,8 @@ class InvoiceController extends Controller
         *           name="page", 
         *           description="",
         *           @OA\Schema(
-        *               type="integer"
+        *               type="integer",
+        *               default="1"
         *           )
         *       ),
         *       @OA\Parameter(
@@ -194,7 +197,8 @@ class InvoiceController extends Controller
         *           name="minCost", 
         *           description="",
         *           @OA\Schema(
-        *               type="integer"
+        *               type="integer",
+        *               default="0"
         *           )
         *       ),
         *       @OA\Parameter(
@@ -203,7 +207,8 @@ class InvoiceController extends Controller
         *           name="maxCost", 
         *           description="",
         *           @OA\Schema(
-        *               type="integer"
+        *               type="integer",
+        *               default="0"
         *           )
         *       ),
         *       @OA\Parameter(
@@ -228,15 +233,7 @@ class InvoiceController extends Controller
         *               enum={"active", "completed", "aborted"}
         *           ),
         *       ),
-        *       @OA\Parameter(
-        *           in="path", 
-        *           required=false, 
-        *           name="search", 
-        *           description="Search by name, description, cost or tags",
-        *           @OA\Schema(
-        *               type="string"
-        *           )
-        *       ),
+
         *       @OA\Parameter(
         *           in="path", 
         *           required=false, 
@@ -262,7 +259,8 @@ class InvoiceController extends Controller
         *           required=false,
         *           name="search",
         *           @OA\Schema(
-        *               type="string"
+        *               type="string",
+        *               default="text"
         *           )
         *       ),
         *       @OA\Response(
