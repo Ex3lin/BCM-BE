@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ScheduleInvoiceController;
 use App\Http\Controllers\SummaryMonthController;
@@ -34,3 +35,5 @@ Route::post('/attachTags', [InvoiceController::class, 'attachTags']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/DBexport', [DatabaseController::class, 'exportDatabase']);
