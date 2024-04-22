@@ -6,6 +6,40 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/DBexport": {
+            "get": {
+                "tags": [
+                    "Database"
+                ],
+                "summary": "Export database",
+                "description": "Export all elements of database",
+                "operationId": "a43bbd93113fa528b299843419c42017",
+                "responses": {
+                    "200": {
+                        "description": "Successful request"
+                    }
+                }
+            }
+        },
+        "api/DBimport": {
+            "post": {
+                "tags": [
+                    "Database"
+                ],
+                "summary": "Import database from .json file",
+                "operationId": "f18b5404b6f4897df4b9a1eecc07bbd7",
+                "requestBody": {
+                    "content": {
+                        "application/json": {}
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Database has been imported successfully"
+                    }
+                }
+            }
+        },
         "api/invoice": {
             "post": {
                 "tags": [

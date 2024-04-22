@@ -1,4 +1,4 @@
-# Budget control manager v.0.1.0
+# Budget control manager v.1.0.0
 Quick and easy manager for control and predict yours budget.
 
 ### Entities:
@@ -11,6 +11,13 @@ Invoice types:
 - Expense - note with neg cost
 
 Tags - conditionally categories for your invoices
+
+### Features:
+Attaching any created tags to your invoices
+
+Summary - get value of your expensies by dates range
+
+Export and Import all DB of you entities to JSON file.
 
 ## Used packages:
 

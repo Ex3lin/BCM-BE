@@ -254,7 +254,6 @@ class InvoiceController extends Controller
         *               enum={"active", "completed", "aborted"}
         *           ),
         *       ),
-
         *       @OA\Parameter(
         *           in="path", 
         *           required=false, 

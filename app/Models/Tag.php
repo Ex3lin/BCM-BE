@@ -10,7 +10,7 @@ class Tag extends Model
 { 
     use HasFactory;
     protected $table = 'tags';
-    protected $fillable = ['name'];
+    protected $fillable = ['id', 'name'];
 
     public function invoiceTags(): BelongsToMany{
         return $this->belongsToMany(Invoice::class,'invoice_tag','tag_id','invoice_id');
